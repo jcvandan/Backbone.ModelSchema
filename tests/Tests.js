@@ -42,4 +42,22 @@ describe("Given I have a Backbone.Model with a schema,", function() {
 
   	});
 
+  	describe('trying to get a property', function () {
+
+		it("not defined in schema should case exception", function() {	  		
+	  		expect(function () {
+	  			var model = new PersonModel({Name: 'Dan'});
+  				model.get('NotInSchema');
+	  		}).toThrow('specified propery is not present in schema');
+	  	});
+
+	  	it("present in the schema should be ok", function() {
+	  		expect(function () {
+	  			var model = new PersonModel({Name: 'Dan'});
+  				model.get('Name');
+	  		}).not.toThrow();
+	  	});
+
+  	});
+
 });
