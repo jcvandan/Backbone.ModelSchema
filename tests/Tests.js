@@ -169,6 +169,30 @@ describe("Given I have a Backbone.Model with a schema,", function() {
 
 	});
 
+	describe('and I want to set an "array" property', function () {
+		
+	  	it("with an array should be ok", function() {
+	  		expectSetToWork('Arr', []);
+	  	});
+
+		it("with all other types should fail", function() {
+	  		expectSetToFailWithWrongTypes('Arr', 'array');
+	  	});
+
+	});
+
+	describe('and I want initialise a model with an "array" property', function () {
+		
+	  	it("with an array should be ok", function() {
+	    	expectInitialiseToWork({Arr: []});
+	  	});
+
+		it("with all other types should fail", function() {
+	  		expectInitialiseToFailWithWrongTypes('Arr', 'array');
+	  	});
+
+	});
+
 	function expectInitialiseToWork(properties) {
 		expect(function () {
 			var model = new PersonModel(properties);
@@ -180,7 +204,7 @@ describe("Given I have a Backbone.Model with a schema,", function() {
 	function expectInitialiseToFailWithWrongTypes(key, ignoreType) {
 		for (var v in allTypeValues) {
 			var value = allTypeValues[v];
-			if (typeof value != ignoreType) {
+			if (getTypeOf(value) != ignoreType) {
 				expect(function () {
 					var init = {};
 					init[key] = value;
@@ -200,12 +224,21 @@ describe("Given I have a Backbone.Model with a schema,", function() {
 	function expectSetToFailWithWrongTypes(key, ignoreType) {
 		for (var v in allTypeValues) {
 			var value = allTypeValues[v];
-			if (typeof value != ignoreType) {
+			if (getTypeOf(value) != ignoreType) {
 				expect(function () {
 					new PersonModel().set(key, value);
 				}).toThrow('value does not match specified property type');
 			}
 		}
+	}
+
+	function getTypeOf(v) {
+		var t = typeof v;
+		if (t == 'object' && Array.isArray(v)) {
+			t = 'array';
+		}
+
+		return t;
 	}
 
 });
