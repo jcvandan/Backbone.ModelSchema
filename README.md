@@ -28,4 +28,11 @@ From now on when you initialize your custom model, call `set`, or call `get`, an
 
 ## Property Types
 
-At the moment you can only set a property type as 'any', although I plan to add support for other property types in the future.
+Property types can be set as any JavaScript data type, so any of the following are legitimate:
+
+ - `boolean`
+ - `string`
+ - `array`
+ - `function`
+ - `object`
+ - `number`
