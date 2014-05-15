@@ -242,3 +242,17 @@ describe("Given I have a Backbone.Model with a schema,", function() {
 	}
 
 });
+
+describe("Given I have a normal Backbone.Model with no schema,", function() {
+
+	it("I should be allowed to create a model with any properties", function() {
+    	var model = new Backbone.Model({Test: 'test'});
+  	});
+
+  	it("I should be be able to set and get properties", function() {
+    	var model = new Backbone.Model();
+    	model.set('Test2', 'whatever');
+    	model.get('Test3');
+  	});
+
+});

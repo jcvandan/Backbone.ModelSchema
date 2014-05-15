@@ -4,12 +4,12 @@
 	var originalGet = Backbone.Model.prototype.get;
 
 	Backbone.Model.prototype.set = function (key, val, options) {
-		validateProperty.bind(this)(key, val);
+		if (this.schema) validateProperty.bind(this)(key, val);
 		originalSet.bind(this)(key, val, options);
 	};
 
 	Backbone.Model.prototype.get = function (attr) {
-		validateProperty.bind(this)(attr);
+		if (this.schema) validateProperty.bind(this)(attr);
 		originalGet.bind(this)(attr);
 	};
 
